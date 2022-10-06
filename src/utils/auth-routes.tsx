@@ -12,7 +12,7 @@ const AuthProvider = ({ children }: Props) => {
   if (token) {
     return <> {children} </>;
   } else {
-    return <Navigate to={'/'} replace />;
+    return <Navigate to={'/auth'} replace />;
   }
 };
 export default AuthProvider;
