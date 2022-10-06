@@ -1,8 +1,7 @@
-import { AxiosError } from 'axios';
 import create from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { fetchApi } from '../lib/fetch';
-import { ErrorType, setError } from '../utils/error';
+import { setError } from '../utils/error';
 import { UserInfo } from '../utils/interfaces/user.interface';
 import { customToast } from '../utils/toast';
 
@@ -19,8 +18,8 @@ type loginUser = {
 };
 
 interface AuthStore {
-  user?: UserInfo;
-  token?: string;
+  user: UserInfo | null;
+  token: string | null;
   error?: string;
   loading: boolean;
   refreshLoading: boolean;
@@ -32,8 +31,8 @@ interface AuthStore {
 
 const useAuthStore = create<AuthStore>()(
   devtools((set) => ({
-    user: undefined,
-    token: undefined,
+    user: null,
+    token: null,
     error: undefined,
     loading: false,
     refreshLoading: false,
@@ -71,7 +70,7 @@ const useAuthStore = create<AuthStore>()(
     },
     logoutUser: async () => {
       await fetchApi.post('/auth/logout');
-      set({ user: undefined });
+      set({ user: null, token: null });
       document.location.href = '/';
     },
   }))
