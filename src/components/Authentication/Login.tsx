@@ -23,7 +23,7 @@ const Login = () => {
   //hooks
   const toast = useToast();
   const navigate = useNavigate();
-  const { user, loginUser } = useAuthStore((state) => state);
+  const { user, loginUser, loading } = useAuthStore((state) => state);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
@@ -85,6 +85,7 @@ const Login = () => {
       </FormControl>
 
       <Button
+        isLoading={loading}
         colorScheme={'blue'}
         width='100%'
         style={{ marginTop: 15 }}

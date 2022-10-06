@@ -5,10 +5,11 @@ import useAuthStore from '../../store/useAuth';
 import useChatStore from '../../store/useChat';
 import GroupChatModal from '../Modal/GroupChatModal';
 import { AddIcon } from '@chakra-ui/icons';
+import ChatLoader from '../UI/ChatLoader';
 
 const MyChats = () => {
   const { user } = useAuthStore((state) => state);
-  const { chats, refetch, getMyChat, selectedChat, setSelectedChat } =
+  const { chats, refetch, getMyChat, selectedChat, setSelectedChat, loading } =
     useChatStore((state) => state);
 
   useEffect(() => {
@@ -48,47 +49,51 @@ const MyChats = () => {
           </Button>
         </GroupChatModal>
       </Box>
-      <Box
-        display='flex'
-        flexDir='column'
-        p={3}
-        bg='#F8F8F8'
-        w='100%'
-        h='100%'
-        borderRadius='lg'
-        overflowY='hidden'
-      >
-        {chats.length > 0 ? (
-          <Stack overflowY={'scroll'}>
-            {chats.map((chat) => (
-              <Box
-                onClick={() => setSelectedChat(chat)}
-                cursor='pointer'
-                bg={selectedChat === chat ? '#38B2AC' : '#E8E8E8'}
-                color={selectedChat === chat ? 'white' : 'black'}
-                px={3}
-                py={2}
-                borderRadius='lg'
-                key={chat._id}
-              >
-                <Text>
-                  {chat.isGroupChat
-                    ? chat.chatName
-                    : getSender(user?._id, chat.users)}
-                </Text>
-                {chat?.latestMessage && (
-                  <Text fontSize='xs'>
-                    <b>{chat?.latestMessage.sender.name} : </b>
-                    {chat?.latestMessage.content.length > 50
-                      ? chat?.latestMessage.content.substring(0, 51) + '...'
-                      : chat?.latestMessage.content}
+      {loading ? (
+        <ChatLoader />
+      ) : (
+        <Box
+          display='flex'
+          flexDir='column'
+          p={3}
+          bg='#F8F8F8'
+          w='100%'
+          h='100%'
+          borderRadius='lg'
+          overflowY='hidden'
+        >
+          {chats.length > 0 ? (
+            <Stack overflowY={'scroll'}>
+              {chats.map((chat) => (
+                <Box
+                  onClick={() => setSelectedChat(chat)}
+                  cursor='pointer'
+                  bg={selectedChat === chat ? '#38B2AC' : '#E8E8E8'}
+                  color={selectedChat === chat ? 'white' : 'black'}
+                  px={3}
+                  py={2}
+                  borderRadius='lg'
+                  key={chat._id}
+                >
+                  <Text>
+                    {chat.isGroupChat
+                      ? chat.chatName
+                      : getSender(user?._id, chat.users)}
                   </Text>
-                )}
-              </Box>
-            ))}
-          </Stack>
-        ) : null}
-      </Box>
+                  {chat?.latestMessage && (
+                    <Text fontSize='xs'>
+                      <b>{chat?.latestMessage.sender.name} : </b>
+                      {chat?.latestMessage.content.length > 50
+                        ? chat?.latestMessage.content.substring(0, 51) + '...'
+                        : chat?.latestMessage.content}
+                    </Text>
+                  )}
+                </Box>
+              ))}
+            </Stack>
+          ) : null}
+        </Box>
+      )}
     </Box>
   );
 };

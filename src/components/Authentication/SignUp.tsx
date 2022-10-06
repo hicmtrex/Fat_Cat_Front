@@ -30,9 +30,12 @@ const SignUp = () => {
   //costom hooks
   const navigate = useNavigate();
   const toast = useToast();
-  const { user, registerUser } = useAuthStore((state) => state);
+  const {
+    user,
+    registerUser,
+    loading: authLoading,
+  } = useAuthStore((state) => state);
 
-  
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
       ...prev,
@@ -184,13 +187,14 @@ const SignUp = () => {
         />
       </FormControl>
       <Button
+        disabled={authLoading}
         colorScheme={'blue'}
         width='100%'
         style={{ marginTop: 15 }}
         onClick={submitHandler}
         isLoading={loading}
       >
-        {loading ? <Spinner /> : 'Sign Up'}
+        {authLoading ? <Spinner /> : 'Sign Up'}
       </Button>
     </VStack>
   );
