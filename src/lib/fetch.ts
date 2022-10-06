@@ -1,5 +1,4 @@
 import axios, { AxiosInstance } from 'axios';
-import { UserInfo } from '../utils/interfaces/user.interface';
 
 export const baseUrl = 'https://fat-cat-production.up.railway.app';
 

@@ -47,7 +47,7 @@ const Login = () => {
 
   useEffect(() => {
     if (user) {
-      navigate('/chat');
+      navigate('/');
     }
   }, [user]);
 

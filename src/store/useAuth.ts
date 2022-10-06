@@ -71,7 +71,7 @@ const useAuthStore = create<AuthStore>()(
     logoutUser: async () => {
       await fetchApi.post('/auth/logout');
       set({ user: null, token: null });
-      document.location.href = '/';
+      document.location.href = '/auth';
     },
   }))
 );

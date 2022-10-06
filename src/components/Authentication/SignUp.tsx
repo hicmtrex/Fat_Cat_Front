@@ -113,7 +113,7 @@ const SignUp = () => {
   };
 
   useEffect(() => {
-    if (user) navigate('/chat');
+    if (user) navigate('/');
   }, [user]);
 
   return (
