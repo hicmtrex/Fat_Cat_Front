@@ -28,9 +28,9 @@ const App = () => {
       <BrowserRouter>
         <main className='main'>
           <Routes>
-            <Route path='/' element={<HomePage />} />
+            <Route path='/auth' element={<HomePage />} />
             <Route
-              path='/chat'
+              path='/'
               element={
                 <AuthRoutes>
                   <ChatPage />
