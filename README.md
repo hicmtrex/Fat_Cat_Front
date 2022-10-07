@@ -41,20 +41,9 @@
   </ul>
 </details>
 
-   <h4> <li><a href="https://www.mongodb.com/">👉 Backend</a></li></h4>
-
 <details>
   <summary><a href="https://github.com/hicmtrex/Fat_Cat_Server">👉 Backend</a></summary>
-  <ul>
-   <li><a href="https://www.typescrit.com/">Typescrit</a></li>
-    <li><a href="https://nodejs.org/en/">Node.js</a></li>
-    <li><a href="https://expressjs.com/">Express.js</a></li>
-    <li><a href="https://socket.io/docs/v4/typescript">Socket.io</a></li>
-  </ul>
-  <summary>Database</summary>
-  <ul>
-    <li><a href="https://www.mongodb.com/">MongoDB</a></li>
-  </ul>
+
 </details>
 
 <!-- Features -->
