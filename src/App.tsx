@@ -29,14 +29,7 @@ const App = () => {
         <main className='main'>
           <Routes>
             <Route path='/auth' element={<HomePage />} />
-            <Route
-              path='/'
-              element={
-                <AuthRoutes>
-                  <ChatPage />
-                </AuthRoutes>
-              }
-            />
+            <Route path='/' element={<ChatPage />} />
           </Routes>
         </main>
         <Toaster position='bottom-center' reverseOrder={false} />
