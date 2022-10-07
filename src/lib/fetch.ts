@@ -1,6 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 
 export const baseUrl = import.meta.env.VITE_API_URL;
+
 export const fetchApi: AxiosInstance = axios.create({
   baseURL: `${baseUrl}/api`,
   withCredentials: true,
