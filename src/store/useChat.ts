@@ -17,9 +17,8 @@ interface ChatStore {
   renameGroupChat: (chat: { chatName: string; _id: string }) => void;
   addUserToGroup: (chat: { userId: string; _id: string }) => void;
   removeUserFromGroup: (chatObj: { userId: string; chatId: string }) => void;
-  setReftesh: () => void;
+  setRefresh: () => void;
 }
-
 
 const useChatStore = create<ChatStore>((set) => ({
   chats: [],
@@ -28,7 +27,7 @@ const useChatStore = create<ChatStore>((set) => ({
   selectedChat: undefined,
   loading: false,
   error: undefined,
-  setReftesh: () => {
+  setRefresh: () => {
     set((state) => ({ refetch: !state.refetch }));
   },
   setSelectedChat: (chat) => {

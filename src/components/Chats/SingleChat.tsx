@@ -1,8 +1,11 @@
 import {
   Box,
+  Button,
   FormControl,
   IconButton,
   Input,
+  InputGroup,
+  InputRightElement,
   Spinner,
   Text,
   useToast,
@@ -21,6 +24,7 @@ import { io, Socket } from 'socket.io-client';
 import Lottie from 'react-lottie';
 import animationData from '../../assets/animation.json';
 import useMessageStore from '../../store/useMessage';
+import EmojiPicker from 'emoji-picker-react';
 
 let selectedChatCompare: any;
 let socket: Socket;
@@ -38,9 +42,7 @@ const SingleChat = () => {
 
   //custom hooks
   const { notification, setNotification } = useMessageStore((state) => state);
-  const { selectedChat, setSelectedChat, setReftesh } = useChatStore(
-    (state) => state
-  );
+  const { selectedChat, setSelectedChat } = useChatStore((state) => state);
   const toast = useToast();
 
   const defaultOptions = {
@@ -100,11 +102,11 @@ const SingleChat = () => {
   const typingHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setNewMessage(e.target.value);
 
-    if (!socketConnected) return;
+    if (!socketConnected || !selectedChat) return;
 
     if (!typing) {
       setTyping(true);
-      socket.emit('typing', selectedChat?._id);
+      socket.emit('typing', selectedChat._id);
     }
     const lastTypingTime = new Date().getTime();
     const timerLength = 3000;
@@ -112,10 +114,15 @@ const SingleChat = () => {
       const timeNow = new Date().getTime();
       const timeDiff = timeNow - lastTypingTime;
       if (timeDiff >= timerLength && typing) {
-        socket.emit('stop typing', selectedChat?._id);
+        socket.emit('stop typing', selectedChat._id);
         setTyping(false);
       }
     }, timerLength);
+  };
+
+  const onEmojiClick = (event: any) => {
+    setShowEmoji(false);
+    setNewMessage(`${newMessage} ${event.emoji}`);
   };
 
   //lifecyle
@@ -141,7 +148,6 @@ const SingleChat = () => {
       ) {
         if (!notification.includes(newMessageRecieved)) {
           setNotification([newMessageRecieved, ...notification]);
-          setReftesh();
         }
       } else {
         setMessages([...messages, newMessageRecieved]);
@@ -196,6 +202,8 @@ const SingleChat = () => {
             borderRadius='lg'
             overflowY='hidden'
           >
+            {showEmoji && <EmojiPicker onEmojiClick={onEmojiClick} />}
+
             {loading ? (
               <Spinner
                 size='xl'
@@ -206,7 +214,7 @@ const SingleChat = () => {
               />
             ) : (
               <div className='messages'>
-                <ScrollableChat messages={messages} />
+                {!showEmoji && <ScrollableChat messages={messages} />}
               </div>
             )}
 
@@ -216,7 +224,7 @@ const SingleChat = () => {
               isRequired
               mt={3}
             >
-              {istyping && (
+              {istyping ? (
                 <div>
                   <Lottie
                     options={defaultOptions}
@@ -224,14 +232,23 @@ const SingleChat = () => {
                     style={{ marginBottom: 15, marginLeft: 0 }}
                   />
                 </div>
+              ) : (
+                <></>
               )}
-              <Input
-                onChange={typingHandler}
-                value={newMessage}
-                variant='filled'
-                bg='#fff'
-                placeholder='Enter a message..'
-              />
+              <InputGroup>
+                <Input
+                  variant='filled'
+                  bg='#fff'
+                  placeholder='Enter a message..'
+                  value={newMessage}
+                  onChange={typingHandler}
+                />
+                <InputRightElement>
+                  {!showEmoji && (
+                    <Button onClick={() => setShowEmoji(true)}>😃</Button>
+                  )}
+                </InputRightElement>
+              </InputGroup>
             </FormControl>
           </Box>
         </>

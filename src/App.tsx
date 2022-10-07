@@ -5,8 +5,8 @@ import { Toaster } from 'react-hot-toast';
 import ChatPage from './pages/ChatPage';
 import useAuthStore from './store/useAuth';
 import { authorizationProvider } from './lib/fetch';
-import AuthRoutes from './utils/auth-routes';
 import Loader from './components/UI/Loader';
+import AuthProvider from './utils/auth-routes';
 
 const App = () => {
   const { token, refreshToken, refreshLoading } = useAuthStore(
@@ -29,7 +29,14 @@ const App = () => {
         <main className='main'>
           <Routes>
             <Route path='/auth' element={<HomePage />} />
-            <Route path='/' element={<ChatPage />} />
+            <Route
+              path='/'
+              element={
+                <AuthProvider>
+                  <ChatPage />
+                </AuthProvider>
+              }
+            />
           </Routes>
         </main>
         <Toaster position='bottom-center' reverseOrder={false} />

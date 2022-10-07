@@ -42,6 +42,8 @@ const SignUp = () => {
       [e.target.name]: e.target.value,
     }));
   };
+
+  //upload image to cloudinary
   const updloadImage = (image: any) => {
     // check image require
     if (!image)

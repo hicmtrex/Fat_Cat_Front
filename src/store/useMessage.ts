@@ -10,7 +10,7 @@ const useMessageStore = create<MessageStore>((set) => ({
   notification: [],
 
   setNotification: (n) => {
-    set((state) => ({ notification: n }));
+    set({ notification: n });
   },
 }));
 

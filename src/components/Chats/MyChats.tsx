@@ -16,6 +16,7 @@ const MyChats = () => {
     getMyChat();
   }, [refetch]);
 
+  
   return (
     <Box
       display={{ base: selectedChat ? 'none' : 'flex', md: 'flex' }}
