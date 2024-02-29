@@ -2,7 +2,7 @@ repo_name: hicmtrex/Fat_Cat_Front
 report_id: 5dbd4b8287d8ecc619998a09adf35eb6
 version: 0.1
 repo_type: Public
-timestamp: '2024-01-05T08:17:57+00:00'
+timestamp: '2024-02-29T19:09:18+00:00'
 requested_by: hicmtrex
 provider: github
 branch: main
@@ -309,6 +309,13 @@ tools:
   last_updated_by: Firstname Lastname
   last_updated_on: 2022-10-06 22:59:48.000000000 Z
   vulnerabilities:
+  - name: Vite dev server option `server.fs.deny` can be bypassed when hosted on case-insensitive
+      filesystem
+    cve_id: CVE-2024-23331
+    cve_url: https://github.com/advisories/GHSA-c24v-8rfc-w8vw
+    detected_date: Jan 20
+    severity: high
+    first_patched: 3.2.8
   - name: Vite Server Options (server.fs.deny) can be bypassed using double forward-slash
       (//)
     cve_id: CVE-2023-34092
